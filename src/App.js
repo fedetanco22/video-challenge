@@ -1,11 +1,16 @@
+import { AppProvider } from "./context/useAppContext";
+import Display from "./components/DisplayComponent/DisplayComponents";
+import Controls from "./components/ControlsComponent/ControlsComponent";
+
 import "./App.css";
 import "fontsource-roboto";
 
 function App() {
 	return (
-		<div className='App'>
-			<h1>VIDEO CHALLENGE</h1>
-		</div>
+		<AppProvider>
+			<Display />
+			<Controls />
+		</AppProvider>
 	);
 }
 
