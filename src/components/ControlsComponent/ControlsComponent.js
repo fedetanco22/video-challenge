@@ -14,53 +14,55 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Container } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
-  formControl: {
-    minWidth: 200,
-  },
-  container: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
+	root: {},
+	formControl: {
+		minWidth: 200,
+	},
+	container: {
+		display: "flex",
+		justifyContent: "center",
+		alignItems: "center",
+	},
 }));
 
-export default function ControlsComponent(params) {
-  const [videos, setVideos] = useState({});
+export default function ControlsComponent() {
+	useEffect(() => {
+		const url = "https://run.mocky.io/v3/93018145-28fc-4c92-a347-0118720d3ccd";
+		axios.get(url).then((response) => {
+			setVideos(response.data.categories[0].videos);
+		});
+	}, []);
 
-  useEffect(() => {
-    const url = "https://run.mocky.io/v3/93018145-28fc-4c92-a347-0118720d3ccd";
-    axios.get(url).then((response) => {
-      setVideos(response.data.categories[0].videos);
-    });
-  }, []);
+	const classes = useStyles();
+	return (
+		<>
+			<FormControl className={classes.formControl} component='fieldset'>
+				<InputLabel>Select Your Video</InputLabel>
+				<Select>
+					{videos.map((video, key) => {
+						return (
+							<MenuItem key={key} value={1}>
+								{video.title}
+							</MenuItem>
+						);
+					})}
+				</Select>
+			</FormControl>
 
-  const classes = useStyles();
-  return (
-    <>
-      <FormControl className={classes.formControl} component="fieldset">
-        <InputLabel>Select Your Video</InputLabel>
-        <Select>
-          <MenuItem value={11}>10</MenuItem>
-          <MenuItem value={11}>10</MenuItem>
-          <MenuItem value={11}>10</MenuItem>
-        </Select>
-      </FormControl>
-
-      <Container className={classes.container}>
-        <IconButton aria-label="play">
-          <PlayArrowIcon />
-        </IconButton>
-        <IconButton aria-label="pause" disabled color="primary">
-          <PauseIcon />
-        </IconButton>
-        <IconButton color="secondary" aria-label="volumn">
-          <VolumeDownIcon />
-        </IconButton>
-        <IconButton color="secondary" aria-label="volumn">
-          <VolumeUpIcon />
-        </IconButton>
-      </Container>
-    </>
-  );
+			<Container className={classes.container}>
+				<IconButton aria-label='play'>
+					<PlayArrowIcon />
+				</IconButton>
+				<IconButton aria-label='pause' disabled color='primary'>
+					<PauseIcon />
+				</IconButton>
+				<IconButton color='secondary' aria-label='volumn'>
+					<VolumeDownIcon />
+				</IconButton>
+				<IconButton color='secondary' aria-label='volumn'>
+					<VolumeUpIcon />
+				</IconButton>
+			</Container>
+		</>
+	);
 }
