@@ -1,5 +1,5 @@
 import { AppProvider } from "./context/useAppContext";
-import Display from "./components/DisplayComponent/DisplayComponents";
+import Display from "./components/DisplayComponent/DisplayComponent";
 import Controls from "./components/ControlsComponent/ControlsComponent";
 
 import "./App.css";
