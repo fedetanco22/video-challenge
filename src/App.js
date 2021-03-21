@@ -1,19 +1,19 @@
 import { AppProvider } from "./context/useAppContext";
-import Display from "./components/DisplayComponent/DisplayComponent";
-import Controls from "./components/ControlsComponent/ControlsComponent";
+import DisplayComponent from "./components/DisplayComponent/DisplayComponent";
+import ControlsComponent from "./components/ControlsComponent/ControlsComponent";
 import "./App.css";
 import "fontsource-roboto";
 import NavBar from "./components/NavBar/NavBar";
 
 function App() {
   return (
-    <div className="App">
-      <AppProvider>
+    <AppProvider>
+      <div className="App">
         <NavBar />
-        <Controls />
-        <Display />
-      </AppProvider>
-    </div>
+        <ControlsComponent />
+        <DisplayComponent />
+      </div>
+    </AppProvider>
   );
 }
 
