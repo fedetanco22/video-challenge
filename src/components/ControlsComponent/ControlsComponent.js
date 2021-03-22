@@ -1,17 +1,12 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
+
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
+import VideoControls from "../VideoControls/VideoControls";
+
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import IconButton from "@material-ui/core/IconButton";
-import PlayArrowIcon from "@material-ui/icons/PlayArrow";
-import PauseIcon from "@material-ui/icons/Pause";
-import VolumeDownIcon from "@material-ui/icons/VolumeDown";
-import VolumeUpIcon from "@material-ui/icons/VolumeUp";
-
 import { makeStyles } from "@material-ui/core/styles";
-import { Container } from "@material-ui/core";
 
 import useAppContext from "../../context/useAppContext";
 import "./ControlsComponent.css";
@@ -29,39 +24,55 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ControlsComponent() {
-  const { videos } = useAppContext();
-  // console.log("🚀 constrol ", videos);
+  const { videos, getVideoDisplay } = useAppContext();
+
+  const [value, setValue] = useState("");
+  const [selectedVideo, setSelectedVideo] = useState("");
+  const [open, setOpen] = useState(false);
 
   const classes = useStyles();
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+    setSelectedVideo(event.target.value);
+    handleSelectedVideo();
+  };
+
+  const handleSelectedVideo = () => {
+    getVideoDisplay(selectedVideo);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
   return (
     <div id="Controls" className="controls-container">
       <FormControl className={classes.formControl} component="fieldset">
-        <InputLabel>Select Your Video</InputLabel>
-        {/* <Select>
-          {videos.map((video, key) => {
+        <InputLabel id="demo-controlled-open-select-label">
+          Select Your Video
+        </InputLabel>
+        <Select
+          labelId="demo-controlled-open-select-label"
+          id="demo-controlled-open-select"
+          open={open}
+          onClose={handleClose}
+          onOpen={handleOpen}
+          value={value}
+          onChange={handleChange}>
+          {videos.map((video, idx) => {
             return (
-              <MenuItem key={key} value={key}>
+              <MenuItem key={idx} value={`${video.title}`}>
                 {video.title}
               </MenuItem>
             );
           })}
-        </Select> */}
+        </Select>
       </FormControl>
-
-      <Container className={classes.container}>
-        <IconButton aria-label="play">
-          <PlayArrowIcon />
-        </IconButton>
-        <IconButton aria-label="pause" disabled color="primary">
-          <PauseIcon />
-        </IconButton>
-        <IconButton color="secondary" aria-label="volumn">
-          <VolumeDownIcon />
-        </IconButton>
-        <IconButton color="secondary" aria-label="volumn">
-          <VolumeUpIcon />
-        </IconButton>
-      </Container>
+      <VideoControls />
     </div>
   );
 }
