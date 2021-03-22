@@ -1,10 +1,10 @@
-import useAppContext from "../../context/useAppContext";
+import useAppContext from "../context/useAppContext";
 import ReactPlayer from "react-player";
 
 export default function DisplayComponent() {
   const { videoDisplay } = useAppContext();
 
-  const { title, sources } = videoDisplay;
+  // const { title, sources } = videoDisplay;
 
   return (
     <>
@@ -12,8 +12,8 @@ export default function DisplayComponent() {
         <div>Pick a Video</div>
       ) : (
         <div>
-          <h1>{title}</h1>
-          <ReactPlayer url={title} playing="true" />
+          {/* <h1>{title}</h1>
+          <ReactPlayer url={title} playing={true} /> ARREGLAR UNDEFINED */}
         </div>
       )}
     </>

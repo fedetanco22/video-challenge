@@ -1,4 +1,4 @@
-import { AppProvider } from "./context/useAppContext";
+import { AppProvider } from "./components/context/useAppContext";
 import DisplayComponent from "./components/DisplayComponent/DisplayComponent";
 import ControlsComponent from "./components/ControlsComponent/ControlsComponent";
 import "./App.css";

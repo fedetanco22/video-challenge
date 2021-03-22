@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import VideoControls from "../VideoControls/VideoControls";
@@ -8,7 +7,7 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import { makeStyles } from "@material-ui/core/styles";
 
-import useAppContext from "../../context/useAppContext";
+import useAppContext from "../context/useAppContext";
 import "./ControlsComponent.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -24,19 +23,24 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ControlsComponent() {
-  const { videos, getVideoDisplay } = useAppContext();
+  const { getVideos, videos } = useAppContext();
+
   const [value, setValue] = useState("");
   const [open, setOpen] = useState(false);
 
   const classes = useStyles();
 
+  useEffect(() => {
+    getVideos();
+  }, []);
+
   const handleChange = (event) => {
-    setValue(event.target.value);
-    handleSelectedVideo();
+    console.log(event.target.value);
+    // handleSelectedVideo();
   };
 
   const handleSelectedVideo = () => {
-    getVideoDisplay(value);
+    // getVideoDisplay(value);
   };
   const handleClose = () => {
     setOpen(false);
