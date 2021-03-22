@@ -21,6 +21,8 @@ export const AppProvider = ({ children }) => {
 
     if (existingVideo) {
       setVideoDisplay(existingVideo);
+    } else {
+      setVideoDisplay({});
     }
   };
 

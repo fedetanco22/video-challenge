@@ -13,7 +13,7 @@ export default function DisplayComponent() {
       ) : (
         <div>
           <h1>{title}</h1>
-          <ReactPlayer url={sources[0]} playing="true" />
+          <ReactPlayer url={title} playing="true" />
         </div>
       )}
     </>
