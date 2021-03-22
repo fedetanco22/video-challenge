@@ -18,15 +18,14 @@ export const AppProvider = ({ children }) => {
 
   const getVideoDisplay = (video) => {
     const existingVideo = videos.find((vid) => vid.title === video);
-    console.log(typeof existingVideo);
-    // if (existingVideo) {
-    //   setVideoDisplay(existingVideo);
-    //   console.log(videoDisplay);
-    // }
+
+    if (existingVideo) {
+      setVideoDisplay(existingVideo);
+    }
   };
 
   return (
-    <AppContext.Provider value={{ videos, getVideoDisplay }}>
+    <AppContext.Provider value={{ videos, getVideoDisplay, videoDisplay }}>
       {children}
     </AppContext.Provider>
   );

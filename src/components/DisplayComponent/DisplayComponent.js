@@ -1,3 +1,14 @@
+import useAppContext from "../../context/useAppContext";
+import ReactPlayer from "react-player";
+
 export default function DisplayComponent() {
-  return <h1>Hola Dislpay: Aca va el video!</h1>;
+  const { videoDisplay } = useAppContext();
+
+  const { title } = videoDisplay;
+  return (
+    <>
+      <h1>{title}</h1>
+      <ReactPlayer url={videoDisplay.sources[0]} />
+    </>
+  );
 }

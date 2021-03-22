@@ -25,21 +25,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ControlsComponent() {
   const { videos, getVideoDisplay } = useAppContext();
-
   const [value, setValue] = useState("");
-  const [selectedVideo, setSelectedVideo] = useState("");
   const [open, setOpen] = useState(false);
 
   const classes = useStyles();
 
   const handleChange = (event) => {
     setValue(event.target.value);
-    setSelectedVideo(event.target.value);
     handleSelectedVideo();
   };
 
   const handleSelectedVideo = () => {
-    getVideoDisplay(selectedVideo);
+    getVideoDisplay(value);
   };
   const handleClose = () => {
     setOpen(false);
