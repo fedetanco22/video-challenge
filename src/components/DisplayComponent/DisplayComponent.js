@@ -1,19 +1,22 @@
+import VideoInformation from "../VideoInformation/VideoInformation";
 import useAppContext from "../context/useAppContext";
 import ReactPlayer from "react-player";
 
 export default function DisplayComponent() {
-  const { videoDisplay } = useAppContext();
-
-  // const { title, sources } = videoDisplay;
+  const { selectedVideo, playing, volume } = useAppContext();
 
   return (
     <>
-      {!videoDisplay ? (
-        <div>Pick a Video</div>
+      {selectedVideo == null ? (
+        <></>
       ) : (
         <div>
-          {/* <h1>{title}</h1>
-          <ReactPlayer url={title} playing={true} /> ARREGLAR UNDEFINED */}
+          <ReactPlayer
+            url={selectedVideo.sources[0]}
+            playing={playing}
+            volume={volume}
+          />
+          <VideoInformation selectedVideo={selectedVideo} />
         </div>
       )}
     </>

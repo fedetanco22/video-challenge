@@ -5,10 +5,10 @@ import VideoControls from "../VideoControls/VideoControls";
 
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
 import useAppContext from "../context/useAppContext";
-import "./ControlsComponent.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -17,13 +17,23 @@ const useStyles = makeStyles((theme) => ({
   },
   container: {
     display: "flex",
+    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 100,
+  },
+  text: {
+    marginTop: 30,
   },
 }));
 
 export default function ControlsComponent() {
-  const { getVideos, videos } = useAppContext();
+  const {
+    videos,
+    getVideos,
+    getSelectedVideo,
+    selectedVideo,
+  } = useAppContext();
 
   const [value, setValue] = useState("");
   const [open, setOpen] = useState(false);
@@ -35,13 +45,10 @@ export default function ControlsComponent() {
   }, []);
 
   const handleChange = (event) => {
-    console.log(event.target.value);
-    // handleSelectedVideo();
+    const id = event.target.value;
+    getSelectedVideo(id, videos);
   };
 
-  const handleSelectedVideo = () => {
-    // getVideoDisplay(value);
-  };
   const handleClose = () => {
     setOpen(false);
   };
@@ -51,7 +58,7 @@ export default function ControlsComponent() {
   };
 
   return (
-    <div id="Controls" className="controls-container">
+    <div id="Controls" className={classes.container}>
       <FormControl className={classes.formControl} component="fieldset">
         <InputLabel id="demo-controlled-open-select-label">
           Select Your Video
@@ -66,14 +73,22 @@ export default function ControlsComponent() {
           onChange={handleChange}>
           {videos.map((video, idx) => {
             return (
-              <MenuItem key={idx} value={`${video.title}`}>
+              <MenuItem key={idx} value={`${video.id}`}>
                 {video.title}
               </MenuItem>
             );
           })}
         </Select>
       </FormControl>
-      <VideoControls />
+      {selectedVideo ? (
+        <VideoControls />
+      ) : (
+        <>
+          <Typography variant="h3" className={classes.text}>
+            Ready to start?
+          </Typography>
+        </>
+      )}
     </div>
   );
 }

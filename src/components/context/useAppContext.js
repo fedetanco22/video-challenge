@@ -1,6 +1,7 @@
 import { createContext, useContext, useReducer } from "react";
 import VideoReducer from "./VideoReducer";
 import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 const AppContext = createContext();
 const useAppContext = () => useContext(AppContext);
@@ -9,6 +10,8 @@ export const AppProvider = ({ children }) => {
   const initialState = {
     videos: [],
     selectedVideo: null,
+    playing: true,
+    volume: 0.5,
   };
 
   const [state, dispatch] = useReducer(VideoReducer, initialState);
@@ -17,21 +20,51 @@ export const AppProvider = ({ children }) => {
     const res = await axios.get(
       "https://run.mocky.io/v3/93018145-28fc-4c92-a347-0118720d3ccd"
     );
+    const data = res.data.categories[0].videos.map((video) => {
+      return { ...video, id: uuidv4() };
+    });
+
     dispatch({
       type: "GET_VIDEOS",
-      payload: res.data.categories[0].videos,
+      payload: data,
     });
   };
 
-  const getVideoDisplay = async () => {
-    const res = await axios.get(
-      "https://run.mocky.io/v3/93018145-28fc-4c92-a347-0118720d3ccd"
-    );
+  const getSelectedVideo = (id, videos) => {
+    const videoSel = videos.find((video) => video.id === id);
 
     dispatch({
       type: "GET_VIDEODISPLAY",
-      payload: res.data.categories[0].videos[0],
+      payload: videoSel,
     });
+  };
+
+  const playVideo = () => {
+    if (!state.playing) {
+      dispatch({
+        type: "PLAY_VIDEO",
+        payload: true,
+      });
+    }
+  };
+  const pauseVideo = () => {
+    if (state.playing) {
+      dispatch({
+        type: "PAUSE_VIDEO",
+        payload: false,
+      });
+    }
+  };
+  const volumeUp = (volume) => {
+    console.log("hola", volume);
+  };
+
+  const volumeDown = () => {
+    console.log("not yet");
+    //   dispatch({
+    //     type: "VOLUME_up",
+    //     // payload: volUp,
+    // });
   };
 
   return (
@@ -40,7 +73,13 @@ export const AppProvider = ({ children }) => {
         videos: state.videos,
         selectedVideo: state.selectedVideo,
         getVideos,
-        getVideoDisplay,
+        getSelectedVideo,
+        playing: state.playing,
+        volume: state.volume,
+        playVideo,
+        pauseVideo,
+        volumeUp,
+        volumeDown,
       }}>
       {children}
     </AppContext.Provider>
