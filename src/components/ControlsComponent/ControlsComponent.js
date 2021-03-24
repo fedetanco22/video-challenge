@@ -20,10 +20,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 100,
+    marginTop: theme.spacing(5),
   },
   text: {
-    marginTop: 30,
+    marginTop: theme.spacing(5),
   },
 }));
 

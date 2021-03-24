@@ -11,13 +11,14 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     margin: "auto",
-    maxWidth: 600,
-    marginTop: 30,
+    maxWidth: 800,
+    marginTop: theme.spacing(5),
+    marginBottom: theme.spacing(5),
   },
   large: {
     width: theme.spacing(7),
     height: theme.spacing(7),
-    marginRight: 30,
+    marginRight: theme.spacing(5),
   },
   text: {
     textAlign: "justify",
@@ -30,7 +31,7 @@ export default function VideoInformation({ selectedVideo }) {
 
   return (
     <>
-      <Paper elevation={3} className={classes.paper}>
+      <Paper elevation={3} maxWidth="md" className={classes.paper}>
         <Grid container spacing={2}>
           <Grid item>
             <Avatar alt={title} src={thumb} className={classes.large} />
