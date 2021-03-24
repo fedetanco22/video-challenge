@@ -5,6 +5,7 @@ import {
   PAUSE_VIDEO,
   VOLUME_UP,
   VOLUME_DOWN,
+  MUTE,
 } from "./types";
 
 export default function VideoReducer(state, action) {
@@ -37,6 +38,11 @@ export default function VideoReducer(state, action) {
         volume: payload,
       };
     case VOLUME_DOWN:
+      return {
+        ...state,
+        volume: payload,
+      };
+    case MUTE:
       return {
         ...state,
         volume: payload,

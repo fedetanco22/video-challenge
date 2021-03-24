@@ -55,16 +55,30 @@ export const AppProvider = ({ children }) => {
       });
     }
   };
-  const volumeUp = (volume) => {
-    console.log("hola", volume);
+  const volumeUp = () => {
+    let volumen = state.volume;
+    volumen = parseFloat(volumen + 0.1);
+    dispatch({
+      type: "VOLUME_UP",
+      payload: volumen,
+    });
   };
 
   const volumeDown = () => {
-    console.log("not yet");
-    //   dispatch({
-    //     type: "VOLUME_up",
-    //     // payload: volUp,
-    // });
+    let volumen = state.volume;
+    volumen = parseFloat(volumen - 0.1);
+    dispatch({
+      type: "VOLUME_DOWN",
+      payload: volumen,
+    });
+  };
+  const mute = () => {
+    let volumen = state.volume;
+    volumen = 0;
+    dispatch({
+      type: "VOLUME_DOWN",
+      payload: volumen,
+    });
   };
 
   return (
@@ -80,6 +94,7 @@ export const AppProvider = ({ children }) => {
         pauseVideo,
         volumeUp,
         volumeDown,
+        mute,
       }}>
       {children}
     </AppContext.Provider>

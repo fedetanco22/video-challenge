@@ -15,6 +15,7 @@ export default function DisplayComponent() {
             url={selectedVideo.sources[0]}
             playing={playing}
             volume={volume}
+            /*   controls */ //TWO ways to see controls in a react Player // ENABLE "controls" TO SEE DEFAULT CONTROLS
           />
           <VideoInformation selectedVideo={selectedVideo} />
         </div>
