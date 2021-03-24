@@ -1,7 +1,7 @@
 import { createContext, useContext, useReducer } from "react";
 import VideoReducer from "./VideoReducer";
 import axios from "axios";
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuid } from "uuid";
 
 const AppContext = createContext();
 const useAppContext = () => useContext(AppContext);
@@ -21,7 +21,7 @@ export const AppProvider = ({ children }) => {
       "https://run.mocky.io/v3/93018145-28fc-4c92-a347-0118720d3ccd"
     );
     const data = res.data.categories[0].videos.map((video) => {
-      return { ...video, id: uuidv4() };
+      return { ...video, id: uuid() };
     });
 
     dispatch({
